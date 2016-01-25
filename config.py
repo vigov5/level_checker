@@ -5,9 +5,9 @@ SQLALCHEMY_DATABASE_URI = 'mysql://admin:admin@localhost/checker'
 SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
 
 CSRF_ENABLED = True
-SECRET_KEY = '&%^%&12o)!JHGHVJBK671i2lkj;^*&:'
+SECRET_KEY = 'place_your_csrf_session_key_here'
 
-AES_KEY = 'alskd8q@%pohasdasdaIUA131asdlkas'
+CSRF_SESSION_KEY = 'place_your_csrf_key_here'
 
 MAX_MEMBER = 5
 LOCK_TEAM = False
