@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row clearfix">
+  <div class="col-md-10 col-md-offset-1">
+    <div class="col-md-8">
+        <p><img src="{{ user.get_avatar_url()|safe }}" width="160" height="160"/></p>
+        <h1>{{ user.name }}</h1>
+        <br>
+        <table class="table table-striped">
+          <tr>
+            <td><h6>Username:</h6></td>
+            <td><span class="glyphicon glyphicon-user"></span> {{ user.username }}</td>
+          </tr>
+          <tr>
+            <td><h6>Email:</h6></td>
+            <td><span class="glyphicon glyphicon-envelope"></span> {{ user.email }}</td>
+          </tr>
+        </table>
+        {% if g.user.id == user.id or g.user.is_admin() %}
+        <a class="btn btn-primary" href="{{ url_for('user.change_password', user_id=user.id) }}">Change Password</a>
+        {% endif %}
+        <a class="btn btn-primary" href="{{ url_for('user.edit_profile') }}">Edit Profile</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
