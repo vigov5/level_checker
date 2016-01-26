@@ -3,7 +3,7 @@ from flask_login import current_user, login_required
 from sqlalchemy import desc, asc
 
 from app import app, db, lm
-from app.common.utils import compute_sign_hash, admin_required
+from app.common.utils import admin_required
 from app.user.models import User
 
 @app.before_request

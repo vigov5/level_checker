@@ -13,7 +13,7 @@ class AnswerView(ModelView):
     can_create = True
 
     # Override displayed fields
-    column_list = ('content', 'question', 'question.examination')
+    column_list = ('id', 'content', 'question', 'question.examination')
 
     def __init__(self, session, **kwargs):
         # You can pass name and other parameters if you want to

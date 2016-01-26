@@ -48,37 +48,6 @@ def send_email(subject, sender, recipients, template_name, args):
         return (False, 'Unknown error. Please try again later')
 
 
-def set_all_cookie(response, sign_cookie):
-    response.set_cookie('ss_sign', sign_cookie)
-    response.set_cookie('ss_user_id', str(g.user.id))
-    response.set_cookie('ss_user_name', g.user.name)
-    if g.user.team:
-        response.set_cookie('ss_team_name', g.user.team.name)
-    else:
-        response.set_cookie('ss_team_name', g.user.name)
-
-
-def delete_all_cookie(response):
-    response.delete_cookie('ss_sign')
-    response.delete_cookie('ss_user_id')
-    response.delete_cookie('ss_user_name')
-    response.delete_cookie('ss_team_name')
-
-
-def compute_sign_hash(values):
-    values.append(app.config['AES_KEY'])
-    raw = '_'.join(values)
-    return hashlib.md5(raw).hexdigest()
-
-
-def compute_color_value(value):
-    return "#" + hashlib.md5(value).hexdigest()[:6]
-
-
-def ordinal(n):
-    return "%d%s" % (n,"tsnrhtdd"[(n/10%10!=1)*(n%10<4)*n%10::4])
-
-
 def check_recaptcha_response(response, remote_ip):
     payload = {
         'secret': app.config['RECAPTCHA_PRIVATE_KEY'],

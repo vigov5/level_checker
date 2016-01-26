@@ -21,9 +21,9 @@ class Question(db.Model):
 
     answers = db.relationship('Answer', backref='question', lazy='dynamic')
 
-    # def __init__(self, content, correct_id):
-    #     self.content = content
-    #     self.correct_id = correct_id
+    def __init__(self, content, correct_id):
+        self.content = content
+        self.correct_id = correct_id
 
     def __repr__(self):
         return '<Question %r>' % self.self.content[:20]
