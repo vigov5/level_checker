@@ -53,3 +53,21 @@ body {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+.answers ul li {
+  list-style: none;
+  display: inline;
+  padding-right: 50px;
+}
+
+.clock {
+  position: fixed;
+  bottom: 20px;
+  height: 40px;
+  width: 140px;
+  background-color: #333;
+  margin-left: -60px;
+  text-align: center;
+  font-size: 2em;
+  color: white;
+}

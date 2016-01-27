@@ -1,3 +1,39 @@
 {% extends "base.html" %}
 {% block content %}
+<h2>All Examinations</h2>
+<div>
+  <a href="{{ url_for('question.create')}}" class="btn btn-primary">Create Question</a>
+</div>
+<table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Questions</th>
+        <th>Limited Time</th>
+        <th>Tested Users</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for examination in examinations %}
+        <tr>
+            <td>{{ examination.title }}</td>
+            <td>{{ examination.questions.count() }}</td>
+            <td>{{ examination.limited_time }} minutes</td>
+            <td>
+              {% for result in examination.results[:9] %}
+              {{ result.user.get_profile_link(with_name=False)|safe }}&nbsp;
+              {% endfor %}
+              {% if examination.results.count() > 9 %}
+              <div class="more-user-{{ examination.id }}" style="display:none">
+                  {% for result in examination.results[9:] %}
+                      {{ result.user.get_profile_link(with_name=False)|safe }}&nbsp;
+                  {% endfor %}
+              </div>
+              <button onclick="$('.more-user-{{ examination.id }}').css('display') == 'block' ? $('.more-user-{{ examination.id }}').hide() : $('.more-user-{{ examination.id }}').show(); return false;">+{{ examination.results.count() }}</button>
+              {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
 {% endblock %}

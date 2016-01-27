@@ -1,0 +1,6 @@
+STATUS_DOING = 1
+STATUS_FINISHED = 2
+STATUS = {
+    STATUS_DOING: 'Doing',
+    STATUS_FINISHED: 'Finished'
+}

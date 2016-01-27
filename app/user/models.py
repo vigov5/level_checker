@@ -23,6 +23,8 @@ class User(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.datetime.now())
     updated_at = db.Column(db.DateTime, default=datetime.datetime.now(), onupdate=datetime.datetime.now)
 
+    results = db.relationship('Result', backref='user', lazy='dynamic')
+
     def __init__(self, username, email, password):
         self.username = username
         self.name = username
@@ -53,6 +55,9 @@ class User(db.Model):
     def __repr__(self):
         return '<User %r>' % self.username
 
+    def get_exam_result(self, examination):
+        return self.results.filter_by(examination_id=examination.id).first()
+
     def __str__(self):
         return self.username
 
@@ -70,13 +75,12 @@ class User(db.Model):
     def is_normal_user(self):
         return self.role == USER.ROLE_USER
 
-    def get_profile_link(self, with_avatar=True):
+    def get_profile_link(self, with_avatar=True, with_name=True):
         class_name = 'text-danger' if self.is_admin() else 'text-default'
         profile_link = url_for('user.profile', user_id=self.id)
         avatar = self.get_avatar_img(24) if with_avatar else ''
-        return u'<a href="{0:s}">{1:s}&nbsp;<span class="{2:s}">{3:s}</span></a>'.format(profile_link, avatar,
-                                                                                         class_name,
-                                                                                         self.name)
+        name = u'&nbsp;<span class="{0:s}">{1:s}</span>'.format(class_name, self.name) if with_name else ''
+        return u'<a href="{0:s}">{1:s}{2:s}</a>'.format(profile_link, avatar, name)
 
     def color_hash(self):
         return compute_color_value(str(self.id) + self.email.encode('utf-8'))

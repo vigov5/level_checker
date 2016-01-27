@@ -1,8 +1,10 @@
 from flask import render_template, g, send_from_directory, abort
-from flask_login import current_user
+from flask_login import current_user, login_required
 
 from app import app, lm
 from app.user.models import User
+from app.examination.models import Examination
+from app.common.utils import admin_required
 
 
 @app.before_request
@@ -14,10 +16,23 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 @app.route('/')
+@app.route('/admin')
+def admin():
+    examinations = Examination.query.all()
+
+    return render_template(
+        'common/admin.html',
+        examinations=examinations
+    )
+
 @app.route('/index')
+@login_required
 def index():
+    examinations = Examination.query.all()
+
     return render_template(
         'common/index.html',
+        examinations=examinations
     )
 
 

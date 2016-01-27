@@ -24,4 +24,25 @@
     </div>
   </div>
 </div>
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <h3>Achievements</h3>
+    <table class="table table-bordered">
+          <tr>
+              <th>Examination</th>
+              <th>Questions</th>
+              <th>Score</th>
+              <th>When</th>
+          </tr>
+        {% for result in user.results|sort(attribute='created_at', reverse = True) %}
+          <tr>
+            <td>{{ result.examination.title }}</td>
+            <td>{{ result.examination.questions.count() }}</td>
+            <td>{{ result.score }}</td>
+            <td>{{ result.updated_at }}</td>
+          </tr>
+        {% endfor %}
+    </table>
+  </div>
+</div>
 {% endblock %}

@@ -1,42 +1,40 @@
 {% extends "base.html" %}
 {% block content %}
-{% for answers in form.questions.errors %}
-    {% for key, errors in answers.items() %}
-        {% for message in errors %}
-<div class="alert alert-danger">{{ message }}</div>
-        {% endfor %}
-    {% endfor %}
-{% endfor %}
 <div class="row">
-  <div class="col-md-6 col-md-offset-3">
-    <form role="form" action="" method="POST">
-        <h2>Do Examination</h2>
-        {% for answers in form if answers.id != 'csrf_token' %}
-        {{ answers.label }}
+  <div class="col-md-10 col-md-offset-1">
+    <form role="form" id="examination" action="" method="POST">
+        <h2>{{ examination.title }}</h2>
+        <h5>{{ examination.limited_time }} minutes</h5>
+        {% for questions in form if questions.id != 'csrf_token' %}
+            <div class="answers">
+            {% for field in questions if field.id != 'csrf_token' %}
+                Question {{ loop.index }}: {{ field.answers.label }}
+                {{ field.answers }}
+                {{ field.hidden_tag() }}
+            {% endfor %}
+            </div>
         {% endfor %}
-                </th>
-                <td>
-                    <ul id="questions-0-answers">
-                        <li>
-                            <input id="questions-0-answers-0" name="questions-0-answers" type="radio" value="1">
-                            <label for="questions-0-answers-0">月曜日</label>
-                        </li>
-                        <li>
-                            <input id="questions-0-answers-1" name="questions-0-answers" type="radio" value="2">
-                            <label for="questions-0-answers-1">火曜日</label>
-                        </li>
-                        <li>
-                            <input id="questions-0-answers-2" name="questions-0-answers" type="radio" value="3">
-                            <label for="questions-0-answers-2">水曜日</label>
-                        </li>
-                        <li>
-                            <input id="questions-0-answers-3" name="questions-0-answers" type="radio" value="4">
-                            <label for="questions-0-answers-3">木曜日</label>
-                        </li>
-                    </ul>
-                </td>
+        {{ form.hidden_tag() }}
         <button class="btn btn-lg btn-primary" type="submit">Finish</button>
     </form>
   </div>
 </div>
+<div class="clock">
+    <span id="hour" class="hour">00</span>:
+    <span id="minute"class="minute">00</span>:
+    <span id="second" class="second">00</span>
+</div>
+<script>
+    remain = {{ remain }};
+    var clock = setInterval(function(){ countDown() }, 1000);
+    function countDown() {
+        remain -= 1;
+        $('#hour').text(("0" + Math.floor(remain/3600)).substr(-2));
+        $('#minute').text(("0" + Math.floor((remain%3600)/60)).substr(-2));
+        $('#second').text(("0" + Math.floor(((remain%3600)%60))).substr(-2));
+        if (remain==0) {
+            $('#examination').submit();
+        }
+    }
+</script>
 {% endblock %}

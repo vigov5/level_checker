@@ -13,6 +13,7 @@ class Examination(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.datetime.now(), onupdate=datetime.datetime.now)
 
     questions = db.relationship('Question', backref='examination', lazy='dynamic')
+    results = db.relationship('Result', backref='examination', lazy='dynamic')
 
     def __init__(self, title, limited_time=15):
         self.title = title

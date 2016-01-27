@@ -16,18 +16,21 @@ lm.login_view = 'user.login'
 mail = Mail(app)
 
 from app.common import views
-from app.user.views import user_module, UserView
+from app.result.views import result_module, ResultView
 from app.answer.views import answer_module, AnswerView
 from app.question.views import question_module, QuestionView
 from app.examination.views import examination_module, ExaminationView
+from app.user.views import user_module, UserView
 
 app.register_blueprint(user_module, url_prefix='/user')
 app.register_blueprint(answer_module, url_prefix='/answer')
 app.register_blueprint(question_module, url_prefix='/question')
 app.register_blueprint(examination_module, url_prefix='/examination')
+app.register_blueprint(result_module, url_prefix='/result')
 
 admin = Admin(app, url='/admin')
 admin.add_view(UserView(db.session, name='Users'))
 admin.add_view(AnswerView(db.session, name='Answers'))
 admin.add_view(QuestionView(db.session, name='Questions'))
 admin.add_view(ExaminationView(db.session, name='Examinations'))
+admin.add_view(ResultView(db.session, name='Results'))

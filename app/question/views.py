@@ -35,8 +35,9 @@ def create():
                 question.correct_id = answer.id
                 break
         db.session.commit()
+        flash('Question created successfully !', category='success')
 
-        return redirect(url_for('index'))
+        return redirect(url_for('amdin'))
 
     return render_template('question/create_question.html', form=form)
 

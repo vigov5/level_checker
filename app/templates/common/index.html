@@ -1,3 +1,37 @@
 {% extends "base.html" %}
 {% block content %}
+<h2>All Examination</h2>
+<h5>Note: once you click start, you can't do it again !</h5>
+<table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Questions</th>
+        <th>Limited Time</th>
+        <th>Your Result</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for examination in examinations %}
+        <tr>
+            <td>{{ examination.title }}</td>
+            <td>{{ examination.questions.count() }}</td>
+            <td>{{ examination.limited_time }} minutes</td>
+            <td>
+                {% if g.user and g.user.is_authenticated() %}
+                {{ g.user.get_exam_result(examination).score }}
+                {% else %}
+                No Data
+                {% endif %}
+            </td>
+            <td>
+                {% if not g.user.get_exam_result(examination) %}
+                <a href="{{ url_for('examination.do_examination', examination_id=examination.id) }}" class="btn btn-primary">Start Test</a>
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
 {% endblock %}
