@@ -1,11 +1,12 @@
 from flask_wtf import Form
-from wtforms import TextField, SubmitField, validators, IntegerField, BooleanField, FormField, SelectField, FieldList, RadioField, HiddenField
+from wtforms import TextField, SubmitField, validators, FormField, SelectField, FieldList, RadioField, HiddenField
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
 from wtforms_alchemy import model_form_factory
 
 from app.question.models import Question
 from app.examination.models import Examination
 from app.answer.forms import AnswerForm
+
 
 ModelForm = model_form_factory(Form)
 

@@ -1,12 +1,6 @@
-import hashlib
 import datetime
-from flask import url_for
-from werkzeug.security import generate_password_hash, check_password_hash
-from sqlalchemy.sql import func
-from sqlalchemy.orm import backref
 
 from app import db
-from app.examination import constants as EXAMINATION
 
 
 class Examination(db.Model):

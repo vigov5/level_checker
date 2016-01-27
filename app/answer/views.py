@@ -1,10 +1,8 @@
-from flask import Blueprint, render_template, flash, redirect, url_for, request, g, make_response, abort
-from flask_login import login_user, logout_user, login_required
+from flask import Blueprint, g
 from flask_admin.contrib.sqla import ModelView
 
-from app import app, db
 from app.answer.models import Answer
-from app.common.utils import send_email, generate_token
+
 
 answer_module = Blueprint('answer', __name__)
 

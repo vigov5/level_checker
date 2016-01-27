@@ -1,12 +1,11 @@
-from flask import Blueprint, render_template, flash, redirect, url_for, request, g, make_response, abort
-from flask_login import login_user, logout_user, login_required
+from flask import Blueprint, render_template, flash, redirect, url_for, g
+from flask_login import login_required
 from flask_admin.contrib.sqla import ModelView
 
-from app import app, db
 from app.question.models import Question
 from app.examination.models import Examination
 from app.examination.forms import DoExaminationForm
-from app.common.utils import send_email, generate_token
+
 
 examination_module = Blueprint('examination', __name__)
 

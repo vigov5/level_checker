@@ -1,10 +1,9 @@
-from flask import Blueprint, render_template, request, g, send_from_directory, abort, jsonify, url_for
-from flask_login import current_user, login_required
-from sqlalchemy import desc, asc
+from flask import render_template, g, send_from_directory, abort
+from flask_login import current_user
 
-from app import app, db, lm
-from app.common.utils import admin_required
+from app import app, lm
 from app.user.models import User
+
 
 @app.before_request
 def before_request():

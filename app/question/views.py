@@ -1,12 +1,13 @@
-from flask import Blueprint, render_template, flash, redirect, url_for, request, g, make_response, abort
-from flask_login import login_user, logout_user, login_required
+from flask import Blueprint, render_template, flash, redirect, url_for, g
+from flask_login import login_required
 from flask_admin.contrib.sqla import ModelView
 
-from app import app, db
+from app import db
 from app.question.models import Question
 from app.answer.models import Answer
 from app.question.forms import CreateQuestionForm
-from app.common.utils import send_email, generate_token, admin_required
+from app.common.utils import admin_required
+
 
 question_module = Blueprint('question', __name__)
 
